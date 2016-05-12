@@ -1,0 +1,252 @@
+@echo off
+title The Howling Kitty batch game
+ :Title
+ color f0
+ echo.
+ echo. 
+ echo.
+ echo.
+ echo                  The Howling kitty ~by MeowingInsanely =3
+ echo                        +_+_+_+_+_+_+_+_+_+_+_+_+_+
+ echo                         An MS-DOS Text Adventure!
+ echo.
+ echo.
+ echo.
+ echo.
+ echo.
+ echo.                                             
+ pause
+ cls
+
+ :Title1
+ echo.
+ echo.
+ echo.
+ echo               Do you want to read the instructions first?(y/n)
+ echo.
+ set /p title=_
+ cls
+ if %title%==y start Instructions.txt
+ if %title%==n goto :name
+ else goto :Title1
+ 
+ :End
+ cls
+ Color 07
+ echo      "=="
+ echo     "_||_"
+ echo    "/_  _\"
+ echo      "||"
+ echo "+==========+"
+ echo "|          |"
+ echo "|   Here   |"
+ echo "|          |"
+ echo "|   Lies   |"
+ echo "|          |"
+ echo "|   The    |"
+ echo "|          |"
+ echo "|   Dead   |"
+ echo "|          |"
+ echo %playername% ]]]
+ pause>nul
+ Exit
+
+ 
+
+ :Name
+ echo.
+ echo.
+ echo.
+ echo                          Enter Your Player Name
+ echo.
+ echo.
+ set /p playername= Name:
+ echo.
+ echo.
+ echo.
+ echo                           Are you sure? (y/n)
+ set /p pnameny=
+ cls
+ if %pnameny%==y goto :Gender
+ if %pnameny%==n goto :Name
+
+ else
+ cls
+ goto :Name
+
+ :GameOverWaiting1
+ echo YOU, The Player. DIED. of waiting.
+ pause>nul
+ exit
+
+ :Gender
+ echo.
+ echo.
+ echo.
+ echo                           Are you She or He? (f/m)
+ echo.
+ echo.
+ set /p gender= Gender:
+ cls
+ if %gender%==f goto :Intro1
+ if %gender%==m goto :Intro1
+ else
+ cls
+ goto :Gender
+
+ :Intro1
+ echo.
+ echo.
+ echo                               Enjoy the game!
+ echo.
+ echo.
+ pause
+ cls
+ goto :Scene1a
+
+ :Scene1a
+ color 02
+ echo.
+ echo.
+ echo.
+ echo                           Location: Dark Forest
+ pause>nul
+ cls
+ echo.
+ echo.
+ echo.
+ echo     You had helplessly lost your way in a forest by taking wrong turns.
+ pause>nul
+ cls
+ echo.
+ echo.
+ echo.
+ echo               %playername%: "I must find a way out of here..."
+ pause>nul
+ cls
+ echo.
+ echo.
+ echo. 
+ echo     As the winds harshly blow against you, A terrifying Howl is heard.
+ pause>nul
+ cls
+ goto :Howl1
+
+ :Howl1
+ cls
+ color 74
+ echo.
+ echo.
+ echo.
+ echo                                   *HOWL*
+ pause>nul
+ cls
+ echo.
+ echo.
+ echo.
+ echo                     A snap of a stick is heard nearby.
+ pause>nul
+ cls
+ echo.
+ echo.
+ echo.
+ echo                          You jump and run for it.
+ pause>nul
+ cls
+ goto :Scene1b
+
+ :Scene1b
+ color 02
+ cls
+ echo.
+ echo.
+ echo.
+ echo                As you are running you encounter a road fork.
+ pause>nul
+ cls
+ goto :ChoiceS1b
+
+ :ChoiceS1b
+ cls
+ echo.
+ echo.
+ echo.
+ echo        Which way will you pick? The Right path or the Left one? (l/r)
+ pause>nul
+ set /p pathscene1=_
+ if %pathscene1%==l goto :GameOverSL1b
+ if %pathscene1%==r goto :Scene1c
+ if %pathscene1%==Wait goto :GameOverSWait1b
+ else
+ goto :ChoiceS1b
+
+ :GameOverSL1b
+ color 40
+ echo.
+ echo.
+ echo. cls
+ echo %playername% running as fast as %gender% could, did not see the sharp branch ahead
+ echo of %gender2%. %playername% gets impaled. As %gender2% vision blurs, a Demonic siloutte
+ echo is seen
+ pause>nul
+ cls
+ echo.
+ echo.
+ echo.
+ echo                          Bad End: Impaling Branch.
+ pause>nul
+ echo Choose again? (n/y)
+ set /p restartGameOverSL1b=_
+ if %restartGameOverSL1b%==y goto :Scene1b
+ if %restartGameOverSL1b%==n goto :End
+ if %gender%==f echo she
+ if %gender%==m echo he
+ if %gender%==f set %gender2% her
+ if %gender%==m set %gender2% him
+
+ :Scene1c
+ cls
+ echo.
+ echo.
+ echo.
+ echo           %playername% makes a hard right and continues to run.
+ pause>nul
+ cls
+ echo.
+ echo.
+ echo.
+ echo As %playername% becomes tired, He becomes aware that the presence of the one
+ echo following had ceased.
+ pause>nul
+ cls
+ echo.
+ echo.
+ echo.
+ echo           Now, walking, you reach for your pocket for An item.
+ pause>nul
+ cls
+
+ :DecideItem1
+ cls
+ echo.
+ echo.
+ echo.
+ echo                            Decide a Number (max 9)
+ echo.
+ echo.
+ echo.
+ set /p Item1:
+ cls
+ if %Item1%==1 echo A slice of apple pie (Health)
+ if %Item1%==2 echo A bar of Butter (Special)
+ if %Item1%==3 echo A jar of caterpillar slime (Special)
+ if %Item1%==4 echo A pile of dirt (Special)
+ if %Item1%==5 echo An elephant tusk (Money)
+ if %Item1%==6 goto :GameOverSItem6c
+ if %Item1%==7 echo A goat skin water jug (Special/Health)
+ if %Item1%==8 echo A old Harp (Special/Money)
+ if %Item1%==9 echo A cup of Ice Tea (Health)
+ if %Item1%==0 echo An Ultra-Special KITTEN!!! (Ultra-Special)
+ else goto :DecideItem1
+
+ 
