@@ -1,5 +1,6 @@
 @echo off
 title The Howling Kitty batch game
+call
  :Title
  color f0
  echo.
@@ -25,32 +26,52 @@ title The Howling Kitty batch game
  echo               Do you want to read the instructions first?(y/n)
  echo.
  set /p title=_
+ set m = 0
  cls
  if %title%==y start Instructions.txt
  if %title%==n goto :name
- else goto :Title1
- 
- :End
- cls
- Color 07
- echo      "=="
- echo     "_||_"
- echo    "/_  _\"
- echo      "||"
- echo "+==========+"
- echo "|          |"
- echo "|   Here   |"
- echo "|          |"
- echo "|   Lies   |"
- echo "|          |"
- echo "|   The    |"
- echo "|          |"
- echo "|   Dead   |"
- echo "|          |"
- echo %playername% ]]]
- pause>nul
- Exit
+ if ERRORLEVEL == 1 goto :Title1
 
+ :Save
+ echo Would you like to save?
+ echo (y/n)?
+ set /p save=_
+ if %save%==y goto :Save2 
+
+ :Save1
+ echo Which save file?
+ echo (1/2/3)?
+ set /p save1=_
+ if %save1%==1 (SET items=%92051319% > sf1.cmd) (SET memory=%1351315189519% > sf1.cmd) (SET pn=%1614% > sf1.cmd) (SET gender=%75144517% > sf1.cmd)
+ if %save1%==2 (SET items=%92051319% > sf2.cmd) (SET memory=%1351315189519% > sf2.cmd) (SET pn=%1614% > sf2.cmd) (SET gender=%75144517% > sf2.cmd)
+ if %save1%==3 (SET items=%92051319% > sf3.cmd) (SET memory=%1351315189519% > sf3.cmd) (SET pn=%1614% > sf3.cmd) (SET gender=%75144517% > sf3.cmd)
+ cls
+ echo State Saved
+ pause
+ goto :Memory
+
+ :Memory 
+ goto :%m%
+
+ :Load
+ echo Would you like to Load saved game?
+ pause
+ echo (y/n)?
+ set /p load=_
+ if %load%==y goto :Load1
+ if %load%==n goto :Memory
+
+ :Load1
+ echo Which save file?
+ echo (1/2/3)?
+ set /p save1=_
+ if %save1%==1 call %92051319% savefile1.cmd (Set %92051319%=items) call %1351315189519% savefile1.cmd (set %1351315189519%=memory) call %1614% savefile1.cmd (SET %1614%=pn) call %75144517% savefile1.cmd (SET %75144517%=gender) 
+ if %save1%==2 (SET items=%92051319% > save1.cmd) (SET memory=%1351315189519% > save2.cmd)
+ if %save1%==3 (SET items=%92051319% > save1.cmd) (SET memory=%1351315189519% > save3cmd)
+ cls
+ echo State Saved
+ pause
+ goto :Memory
  
 
  :Name
@@ -60,7 +81,7 @@ title The Howling Kitty batch game
  echo                          Enter Your Player Name
  echo.
  echo.
- set /p playername= Name:
+ set /p pn= Name:
  echo.
  echo.
  echo.
@@ -76,7 +97,7 @@ title The Howling Kitty batch game
 
  :GameOverWaiting1
  echo YOU, The Player. DIED. of waiting.
- pause>nul
+ pause
  exit
 
  :Gender
@@ -86,13 +107,18 @@ title The Howling Kitty batch game
  echo                           Are you She or He? (f/m)
  echo.
  echo.
- set /p gender= Gender:
- cls
- if %gender%==f goto :Intro1
- if %gender%==m goto :Intro1
- else
+ set /p gender= 
  cls
  goto :Gender
+
+ :GenderSettings
+ if %gender%==f %g1%==she
+ if %gender%==f %g2%==her
+ if %gender%==m %g1%==he
+ if %gender%==m %g2%==his
+ else goto :Gender
+ cls
+ goto :Intro1
 
  :Intro1
  echo.
@@ -105,30 +131,32 @@ title The Howling Kitty batch game
  goto :Scene1a
 
  :Scene1a
+ 
  color 02
+ set memory=1
  echo.
  echo.
  echo.
  echo                           Location: Dark Forest
- pause>nul
+ pause
  cls
  echo.
  echo.
  echo.
- echo     You had helplessly lost your way in a forest by taking wrong turns.
- pause>nul
+ echo     %pn% had helplessly lost your way in a forest by taking wrong turns.
+ pause
  cls
  echo.
  echo.
  echo.
- echo               %playername%: "I must find a way out of here..."
- pause>nul
+ echo               %pn%: "I must find a way out of here..."
+ pause
  cls
  echo.
  echo.
  echo. 
  echo     As the winds harshly blow against you, A terrifying Howl is heard.
- pause>nul
+ pause
  cls
  goto :Howl1
 
@@ -139,19 +167,19 @@ title The Howling Kitty batch game
  echo.
  echo.
  echo                                   *HOWL*
- pause>nul
+ pause
  cls
  echo.
  echo.
  echo.
  echo                     A snap of a stick is heard nearby.
- pause>nul
+ pause
  cls
  echo.
  echo.
  echo.
  echo                          You jump and run for it.
- pause>nul
+ pause
  cls
  goto :Scene1b
 
@@ -162,7 +190,7 @@ title The Howling Kitty batch game
  echo.
  echo.
  echo                As you are running you encounter a road fork.
- pause>nul
+ pause
  cls
  goto :ChoiceS1b
 
@@ -172,7 +200,7 @@ title The Howling Kitty batch game
  echo.
  echo.
  echo        Which way will you pick? The Right path or the Left one? (l/r)
- pause>nul
+ pause
  set /p pathscene1=_
  if %pathscene1%==l goto :GameOverSL1b
  if %pathscene1%==r goto :Scene1c
@@ -185,45 +213,41 @@ title The Howling Kitty batch game
  echo.
  echo.
  echo. cls
- echo %playername% running as fast as %gender% could, did not see the sharp branch ahead
- echo of %gender2%. %playername% gets impaled. As %gender2% vision blurs, a Demonic siloutte
+ echo %pn% running as fast as %g1% could, did not see the sharp branch ahead
+ echo of %g2%. %pn% gets impaled. As %g2% vision blurs, a Demonic siloutte
  echo is seen
- pause>nul
+ pause
  cls
  echo.
  echo.
  echo.
  echo                          Bad End: Impaling Branch.
- pause>nul
+ pause
  echo Choose again? (n/y)
  set /p restartGameOverSL1b=_
  if %restartGameOverSL1b%==y goto :Scene1b
  if %restartGameOverSL1b%==n goto :End
- if %gender%==f echo she
- if %gender%==m echo he
- if %gender%==f set %gender2% her
- if %gender%==m set %gender2% him
 
  :Scene1c
  cls
  echo.
  echo.
  echo.
- echo           %playername% makes a hard right and continues to run.
- pause>nul
+ echo           %pn% makes a hard right and continues to run.
+ pause
  cls
  echo.
  echo.
  echo.
- echo As %playername% becomes tired, He becomes aware that the presence of the one
+ echo As %pn% becomes tired, %gender1% becomes aware that the presence of the one
  echo following had ceased.
- pause>nul
+ pause
  cls
  echo.
  echo.
  echo.
  echo           Now, walking, you reach for your pocket for An item.
- pause>nul
+ pause
  cls
 
  :DecideItem1
@@ -235,7 +259,8 @@ title The Howling Kitty batch game
  echo.
  echo.
  echo.
- set /p Item1:
+ pause
+ set /p Item1:_
  cls
  if %Item1%==1 echo A slice of apple pie (Health)
  if %Item1%==2 echo A bar of Butter (Special)
@@ -247,6 +272,64 @@ title The Howling Kitty batch game
  if %Item1%==8 echo A old Harp (Special/Money)
  if %Item1%==9 echo A cup of Ice Tea (Health)
  if %Item1%==0 echo An Ultra-Special KITTEN!!! (Ultra-Special)
+ set items=%Item1%
+ cls
  else goto :DecideItem1
 
- 
+ :DecideItem1
+
+ :Scene2
+ echo.                                      After a while...
+ pause
+ cls
+ echo.                  While walking cautiously you stumble upon an abandond house
+ pause
+ cls
+ echo.                                     Will you enter?
+ pause
+ echo.                                         (y/n)?
+ set /p house=_
+ if %house%==y goto :Scene3 
+ if %house%==n goto :Scene4
+ cls
+
+ :Scene3
+ color e0
+ set hf=1
+ echo.
+
+ goto :Credits
+
+ :End
+ cls
+ Color 07
+ echo.                                           __ 
+ echo.                                         "_||_"
+ echo.                                        "/_  _\"
+ echo.                                          "||"
+ echo.                                   .="+==========+"=.
+ echo.                                  "|                |"
+ echo.                                  "|     Rest       |"
+ echo.                                  "|                |"
+ echo.                                  "|     In         |"
+ echo.                                  "|                |"
+ echo.      /\       /\      /\         "|     Piece      |"       /\       /\       /\
+ echo.    <_||_>   <_||_>  <_||_>       "|                |"     <_||_>   <_||_>   <_||_>
+ echo.      \/       \/      \/         "|                |"       \/       \/       \/    
+ echo.      ||       ||      ||         "|                |"       ||       ||       ||
+ echo.     \||/     \||/    \||/        "|@@@@@@@@@@@@@@@@|"      \||/     \||/     \||/
+ echo.=================================^^^^^^^^^^^^^^^^^^^^^^=================================
+ echo %pn%, would you like to load save?
+ echo (y/n)?
+ set /p death=_
+ if %death%==y back
+ if %death%==n Exit
+ pause
+ goto :Credits
+
+ :Credits
+ echo That's all right now! sorry! =<
+ echo I hope you enjoyed the game!
+ echo Ask me for updates at ninared2@gmail.com!
+ pause
+ exit
